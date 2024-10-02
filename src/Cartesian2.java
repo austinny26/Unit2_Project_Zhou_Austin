@@ -6,7 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-public class Cartesian {
+public class Cartesian2 {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
 
@@ -30,22 +30,24 @@ class CartesianFrame extends JFrame {
 
     public void showUI() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setTitle("Coordinate Grid");
-        setSize(1200, 1200);
+        setTitle("Cartesian");
+        setSize(1800, 1000);
         setVisible(true);
     }
 }
 
 class CartesianPanel extends JPanel {
     // x-axis coord constants
-    public static final int X_AXIS_FIRST_X_COORD = 100;
-    public static final int X_AXIS_SECOND_X_COORD = 1100;
+    public static final int X_AXIS_FIRST_X_COORD = 950;
+    public static final int X_AXIS_SECOND_X_COORD = 1700;
     public static final int X_AXIS_Y_COORD = 600;
+    public static final int X_AXIS_THIRD_X_COORD = 50;
 
     // y-axis coord constants
     public static final int Y_AXIS_FIRST_Y_COORD = 50;
     public static final int Y_AXIS_SECOND_Y_COORD = 600;
-    public static final int Y_AXIS_X_COORD = 50;
+    public static final int Y_AXIS_X_COORD = 950;
+    public static final int Y_AXIS_THIRD_Y_COORD= 950;
 
     //arrows of axis are represented with "hipotenuse" of
     //triangle
@@ -76,10 +78,22 @@ class CartesianPanel extends JPanel {
         g2.drawLine(Y_AXIS_X_COORD, Y_AXIS_FIRST_Y_COORD,
                 Y_AXIS_X_COORD, Y_AXIS_SECOND_Y_COORD);
 
+
+
+        // negative x-axis
+        g2.drawLine(X_AXIS_FIRST_X_COORD, X_AXIS_Y_COORD,
+                X_AXIS_THIRD_X_COORD, X_AXIS_Y_COORD);
+
+        // negative y-axis
+        g2.drawLine(Y_AXIS_X_COORD, Y_AXIS_FIRST_Y_COORD,
+                Y_AXIS_X_COORD, Y_AXIS_THIRD_Y_COORD);
+        System.out.println(Y_AXIS_X_COORD + " " + Y_AXIS_FIRST_Y_COORD + " " + Y_AXIS_X_COORD + " " + Y_AXIS_THIRD_Y_COORD);
+
+
         // draw origin Point
         g2.fillOval(
-                600 - (ORIGIN_COORDINATE_LENGHT / 2),
-                600 - (ORIGIN_COORDINATE_LENGHT / 2),
+                X_AXIS_FIRST_X_COORD - (ORIGIN_COORDINATE_LENGHT / 2),
+                Y_AXIS_SECOND_Y_COORD - (ORIGIN_COORDINATE_LENGHT / 2),
                 ORIGIN_COORDINATE_LENGHT, ORIGIN_COORDINATE_LENGHT);
 
         // numerate axis
@@ -90,14 +104,31 @@ class CartesianPanel extends JPanel {
         int yLength = (Y_AXIS_SECOND_Y_COORD - Y_AXIS_FIRST_Y_COORD)
                 / yCoordNumbers;
 
+        int xCoordNumbers2 = 10;
+        int yCoordNumbers2 = 10;
+        int x2Length = (X_AXIS_FIRST_X_COORD - X_AXIS_THIRD_X_COORD)
+                / xCoordNumbers2;
+        int y2Length = (Y_AXIS_FIRST_Y_COORD - Y_AXIS_THIRD_Y_COORD)
+                / yCoordNumbers;
+
         // draw x-axis numbers
-        for(int i = 1; i < xCoordNumbers; i++) {
+        for(int i = 1; i < 0; i++) {
             g2.drawLine(X_AXIS_FIRST_X_COORD + (i * xLength),
                     X_AXIS_Y_COORD - SECOND_LENGHT,
                     X_AXIS_FIRST_X_COORD + (i * xLength),
                     X_AXIS_Y_COORD + SECOND_LENGHT);
             g2.drawString(Integer.toString(i),
                     X_AXIS_FIRST_X_COORD + (i * xLength) - 3,
+                    X_AXIS_Y_COORD + AXIS_STRING_DISTANCE);
+        }
+        // draw negative-axis numbers
+        for(int i = -9; i < xCoordNumbers; i++) {
+            g2.drawLine(X_AXIS_FIRST_X_COORD - (i * xLength),
+                    X_AXIS_Y_COORD - SECOND_LENGHT,
+                    X_AXIS_FIRST_X_COORD - (i * xLength),
+                    X_AXIS_Y_COORD + SECOND_LENGHT);
+            g2.drawString(Integer.toString(i),
+                    X_AXIS_FIRST_X_COORD + (i * xLength) -7,
                     X_AXIS_Y_COORD + AXIS_STRING_DISTANCE);
         }
 
@@ -110,6 +141,9 @@ class CartesianPanel extends JPanel {
             g2.drawString(Integer.toString(i),
                     Y_AXIS_X_COORD - AXIS_STRING_DISTANCE,
                     Y_AXIS_SECOND_Y_COORD - (i * yLength));
+
         }
+
+        //
     }
 }
