@@ -1,3 +1,7 @@
+
+
+/* Had no time to finish the actual graph part I might finish this in my freetime
+
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
